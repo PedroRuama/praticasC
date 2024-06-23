@@ -1,22 +1,24 @@
 #include <stdio.h>
 
-// #define MENSAGEM "O herrique ganho no chess"
+struct registro
+{
+    int N;
+    int F;
+};
 
-int main(){
+int main()
+{
 
-  int a, i, cont;
-  printf("(0 finalizar) Digite os valores:\n");
-  do{
-      scanf("%d",&a);
-      i=i*a;
-      cont++;
-  }while(a !=0);
+    for (int i = 0; i < 3; i++)
+    {
+        struct registro R;
 
-  printf("termos:%d. produto:%d.",cont,i);
-  
-  
+        scanf("%d %d", &R.N, &R.F);
 
-  return 0;
+        for (int i = 0; i < R.F; i++)
 
+            R.N *= R.F;
 
+        printf("%d ", R.N % R.F);
+    }
 }
