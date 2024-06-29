@@ -12,6 +12,7 @@ int main()
     int acao, dado;
 
     Datas data;
+    
     data.dia = 1;
     data.mes = 1;
     data.ano = 1;

@@ -1,24 +1,35 @@
-#include <stdio.h>
-
-struct registro
+typedef struct FRUTAS
 {
-    int N;
-    int F;
-};
+
+    int BANANA;
+
+    int UVA;
+
+    int MELANCIA;
+
+} FRUTAS;
 
 int main()
 {
+    int A = 6, B =8;
+    FRUTAS FRUTINHAS = {0, 0, 0};
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < A; i++)
     {
-        struct registro R;
 
-        scanf("%d %d", &R.N, &R.F);
+        FRUTINHAS.BANANA += A % B;
 
-        for (int i = 0; i < R.F; i++)
+        FRUTINHAS.UVA += FRUTINHAS.BANANA - B;
 
-            R.N *= R.F;
-
-        printf("%d ", R.N % R.F);
+        B += i;
     }
+
+    if (FRUTINHAS.UVA < 0)
+
+        FRUTINHAS.MELANCIA = FRUTINHAS.BANANA * 2 + FRUTINHAS.UVA;
+
+    else
+        FRUTINHAS.MELANCIA = FRUTINHAS.BANANA * 2 - FRUTINHAS.UVA;
+
+    printf("%d", FRUTINHAS.BANANA + FRUTINHAS.UVA + FRUTINHAS.MELANCIA);
 }
