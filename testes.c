@@ -1,35 +1,32 @@
-typedef struct FRUTAS
-{
+#include <stdio.h>
+typedef struct {
+    int espresso[10];
+    int americano;
+} CAFE;
 
-    int BANANA;
+int main(){
+    int A=1, B=3;
+    printf("%d\n", capuccino(A, B));
+}
 
-    int UVA;
 
-    int MELANCIA;
-
-} FRUTAS;
-
-int main()
-{
-    int A = 6, B =8;
-    FRUTAS FRUTINHAS = {0, 0, 0};
-
-    for (int i = 0; i < A; i++)
-    {
-
-        FRUTINHAS.BANANA += A % B;
-
-        FRUTINHAS.UVA += FRUTINHAS.BANANA - B;
-
-        B += i;
+int capuccino(int A, int B){
+    int C = 0, D = 0;
+    CAFE cafezinho;
+    cafezinho.americano = 0;
+    
+    for (int i = 0; i < 10; i++){
+        cafezinho.espresso[i] = (A + i) - B;
+        if (cafezinho.espresso[i] % 2 == 0)
+            cafezinho.americano += cafezinho.espresso[i];
     }
-
-    if (FRUTINHAS.UVA < 0)
-
-        FRUTINHAS.MELANCIA = FRUTINHAS.BANANA * 2 + FRUTINHAS.UVA;
-
+    
+    D = cafezinho.espresso[A] + cafezinho.espresso[B];
+    
+    if (cafezinho.espresso[A] > cafezinho.espresso[B])
+        C = cafezinho.espresso[A - B] + cafezinho.americano - D;
     else
-        FRUTINHAS.MELANCIA = FRUTINHAS.BANANA * 2 - FRUTINHAS.UVA;
-
-    printf("%d", FRUTINHAS.BANANA + FRUTINHAS.UVA + FRUTINHAS.MELANCIA);
+        C = cafezinho.espresso[B - A] + cafezinho.americano - D;
+    
+    return (C + cafezinho.americano); 
 }
