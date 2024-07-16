@@ -1,32 +1,29 @@
 #include <stdio.h>
-typedef struct {
-    int espresso[10];
-    int americano;
-} CAFE;
+#include <string.h>
 
-int main(){
-    int A=1, B=3;
-    printf("%d\n", capuccino(A, B));
+void misterio(char S[20]);
+
+int main()
+{
+    char S[20] = "Fronteira";
+    misterio(S);
+
+    return 0;
 }
 
+void misterio(char S[20])
+{
+    int B = 0, C = 0;
 
-int capuccino(int A, int B){
-    int C = 0, D = 0;
-    CAFE cafezinho;
-    cafezinho.americano = 0;
-    
-    for (int i = 0; i < 10; i++){
-        cafezinho.espresso[i] = (A + i) - B;
-        if (cafezinho.espresso[i] % 2 == 0)
-            cafezinho.americano += cafezinho.espresso[i];
+    for (int i = 0; S[i] != '\0'; i++)
+    {
+
+        S[i] = toupper(S[i]);
+
+        B += S[i] - 64; // A = 65 na tabela ASCII
     }
-    
-    D = cafezinho.espresso[A] + cafezinho.espresso[B];
-    
-    if (cafezinho.espresso[A] > cafezinho.espresso[B])
-        C = cafezinho.espresso[A - B] + cafezinho.americano - D;
-    else
-        C = cafezinho.espresso[B - A] + cafezinho.americano - D;
-    
-    return (C + cafezinho.americano); 
+
+    C = B % 26;
+
+    printf("%d", C);
 }
