@@ -1,25 +1,26 @@
+#ifndef FILA_H
+#define FILA_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-// Definição da estrutura da fila
 typedef struct node {
-    char item;
+    int item;  
     struct node *link;
 } Node;
 
 typedef struct {
     Node *primeiro, *ultimo;
-    unsigned quantidade;
+    int quantidade;
+    int max;
 } Fila;
 
-// Declaração das funções (API)
-void initialize(Fila *f);
+Fila* initialize(Fila *f, int qntd);
 int vazia(Fila *f);
 void insere(Fila *f, int valor);
 int retira(Fila *f);
 void imprimir(Fila *f);
 void inverter(Fila *f);
+void destroirFila(Fila *f);
 
-
+#endif

@@ -1,60 +1,66 @@
+// Autor: Pedro Ruama Nunes dos Santos
+// RA: 831660
+
 #include "fila.h"
 
-void initialize(Fila *f) {
+Fila* initialize(Fila *f, int qntd) {
     f->primeiro = f->ultimo = NULL;
     f->quantidade = 0;
+    f->max = qntd;
+    return f;
 }
 
-
-
-int vazia(Fila *f)
-{
-    return f->primeiro == NULL;
+int vazia(Fila *f) {
+    return f->quantidade == 0;
 }
 
+void insere(Fila *f, int valor) {
+    if (f->quantidade >= f->max) {
+        printf("Fila cheia!\n");
+        return;
+    }
 
-void insere(Fila *f, int valor)
-{
-    Node *n = (Node *)malloc(sizeof(Node)); 
+    Node *n = (Node *)malloc(sizeof(Node));
+    if (!n) {
+        printf("Erro ao alocar memória.\n");
+        return;
+    }
 
     n->item = valor;
-    n->link = NULL; 
+    n->link = NULL;
 
     if (f->ultimo)
-    {
-        f->ultimo->link = n; 
-    }
+        f->ultimo->link = n;
     else
-    {
-        f->primeiro = n; 
-    }
-
-    f->ultimo = n; 
+        f->primeiro = n;
+    
+    f->ultimo = n;
     f->quantidade++;
 }
 
+int retira(Fila *f) {
+    if (vazia(f)) {
+        printf("Fila vazia!\n");
+        return -1; 
+    }
 
-int retira(Fila *f)
-{
-   if (!vazia(f))
-   {
-        Node *n = f->primeiro;
-        int item = n->item;
-        f->primeiro = n->link;
-        if (f->primeiro == NULL)
-        {
-            f->ultimo= NULL;
-        }
-        free(n);
-        f->quantidade--;  
-        return item;      
-   }
-   return 0;
+    Node *n = f->primeiro;
+    int item = n->item;
+    f->primeiro = n->link;
+
+    if (!f->primeiro)
+        f->ultimo = NULL;
+
+    free(n);
+    f->quantidade--;
+    return item;
 }
 
-
 void imprimir(Fila *f) {
-    if (vazia(f)) return;
+    if (vazia(f)) {
+        printf("Fila vazia!\n");
+        return;
+    }
 
     Node *atual = f->primeiro;
     printf("%d", atual->item);
@@ -67,13 +73,20 @@ void imprimir(Fila *f) {
     printf("\n");
 }
 
-
-void inverter(Fila *f)
-{
-    if (!vazia(f))
-    {
-        int temp = retira(f);
+void inverter(Fila *f) {
+    if (!vazia(f)) {
+        
+        int temp = retira(f);        
         inverter(f);
+
+
         insere(f, temp);
     }
+}
+
+void destroirFila(Fila *f) {
+    while (!vazia(f)) {
+        retira(f);
+    }
+    f->primeiro = f->ultimo = NULL;
 }
